@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="prod_code")
+@Table(name="product_code")
 public class ProdCodeDAO {
     @Id 
     @Column(name="id", nullable=false)

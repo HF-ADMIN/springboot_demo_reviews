@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.opentracing.Tracer;
+// import io.opentracing.Tracer;
 
 /**
  * @className ReviewsController
@@ -33,15 +33,15 @@ public class ReviewsController {
     @Autowired
     private ReviewsService service;
 
-    @Autowired
-    private Tracer tracer;
+    // @Autowired
+    // private Tracer tracer;
 
     /**
      * @methodName getReviewsInfo
      * @throws     Exception
      * @description GET Request를 받아서 전체 Productpage 정보를 조회하는 메소드
      */
-    @RequestMapping(value="/ProductpageInfo", method=RequestMethod.GET)
+    @RequestMapping(value="/ReviewsInfo", method=RequestMethod.GET)
     public ResponseEntity<ReviewsDTO.Response> getReviewsInfo(@RequestHeader HttpHeaders requestHeader, @RequestParam String prodCode) throws Exception{
         ReviewsDTO.Response responseBody = null;
         try {

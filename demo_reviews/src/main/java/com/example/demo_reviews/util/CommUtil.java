@@ -46,7 +46,7 @@ public class CommUtil {
     }
 
     public static String genUUID() {
-        return String.valueOf(UUID.randomUUID());
+        return String.valueOf(UUID.randomUUID().toString().replaceAll("-", ""));
     }
 
     public static Date getCurrentDate() throws Exception {

@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo2</artifactId>
+	<artifactId>demo_reviews</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>demo2</name>
+	<name>demo_reviews</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -99,12 +99,14 @@
 		</dependency>
 
 		<!-- Jaeger Opentracing dependencies -->
+		<!-- 이건 안씀 -->
 		<!--dependency>
 			<groupId>com.uber.jaeger</groupId>
 			<artifactId>jaeger-core</artifactId>
 			<version>0.18.0</version>
 		</dependency-->
-		<dependency>
+
+		<!--dependency>
 			<groupId>io.opentracing.contrib</groupId>
 			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
 			<version>3.1.2</version>
@@ -113,7 +115,7 @@
 			<groupId>io.opentracing.contrib</groupId>
 			<artifactId>opentracing-spring-cloud-starter</artifactId>
 			<version>0.5.5</version>
-		</dependency>
+		</dependency-->
 
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>

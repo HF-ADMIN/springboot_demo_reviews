@@ -46,16 +46,24 @@ public class ReviewsService {
             List<ReviewsDTO.Reviews> reviewsList = new ArrayList<>();
             for(ReviewsDAO dao : repository.findByProdCode(prodCode)) {
                 ReviewsDTO.Reviews reviews = new ReviewsDTO.Reviews();
+                System.out.println("                                      dao : " + dao.toString());
 
                 // Rating Service를 Call
                 String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE + "?reviewsId=" + dao.getReviewsId();
                 final HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeader);
                 String httpMethod = "GET";
 
-                JSONObject ratingResponse = ServiceUtil.callRemoteService(baseURL, requestEntity, httpMethod);
+                // 테스트를 위해 잠시 막아놓음
+                // JSONObject ratingResponse = ServiceUtil.callRemoteService(baseURL, requestEntity, httpMethod);
+
+                
+
                 reviews.setReviewsId(dao.getReviewsId());
                 reviews.setContents(dao.getContents());
-                reviews.setRating((Integer)ratingResponse.get("rating"));
+                // 테스트를 위해 잠시 막아놓음
+                // reviews.setRating((Integer)ratingResponse.get("rating"));
+                reviews.setRating(5);
+                System.out.println("                                      reviews : " + reviews);
 
                 reviewsList.add(reviews);
             }
@@ -79,19 +87,22 @@ public class ReviewsService {
      */
     public ReviewsDTO.Response postReviewsInfo(HttpHeaders requestHeader, ReviewsDTO.Request request) throws Exception {
         ReviewsDTO.Response response = new ReviewsDTO.Response();
+        System.out.println("                               request.prodCode : " + request.getProdCode());
 
         try {
             // request를 입력받아서 reviews Table에 데이터를 저장한다.
             if("C".equals(request.getCudFlag())) {
+                request.setReviewsId(CommUtil.genUUID());
                 ReviewsDAO entity = new ReviewsDAO();
                 entity.setProdCode(request.getProdCode());
-                entity.setReviewsId(CommUtil.genUUID());
+                entity.setReviewsId(request.getReviewsId());
                 entity.setContents(request.getContents());
                 entity.setCreateDate(CommUtil.getCurrentDate());
 
-                ReviewsDAO result = repository.save(entity);
-                logger.info("=====================> [ReviewsService / postDetailsInfo] Insert Result : " + result.toString());
-            } else if("U".equals(request.getCudFlag())) {
+                System.out.println("                               entity : " + entity.toString());
+                Integer result = repository.insert(entity);
+                logger.info("=====================> [ReviewsService / postDetailsInfo] Insert Result : " + result);
+            } else if("U".equals(request.getCudFlag())) { 
                 ReviewsDAO entity = new ReviewsDAO();
                 entity.setReviewsId(request.getReviewsId());
                 entity.setContents(request.getContents());
@@ -101,24 +112,28 @@ public class ReviewsService {
                 logger.info("=====================> [ReviewsService / postDetailsInfo] Update Result : " + result);
             }
 
+            // 테스트를 위해 잠시 막아놓음
             // request를 입력받아서 Rating Service를 POST 호출한다.
-            String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE;
+            // String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE;
 
-            Map<String, Object> req_payload = new HashMap<>();
-            req_payload.put("cudFlag", request.getCudFlag());
-            req_payload.put("reviewsId", request.getReviewsId());
-            req_payload.put("rating", request.getRating());
-            final HttpEntity<?> httpEntity = new HttpEntity<>(req_payload, requestHeader);
-            String httpMethod = "POST";
+            // Map<String, Object> req_payload = new HashMap<>();
+            // req_payload.put("cudFlag", request.getCudFlag());
+            // req_payload.put("reviewsId", request.getReviewsId());
+            // req_payload.put("rating", request.getRating());
+            // final HttpEntity<?> httpEntity = new HttpEntity<>(req_payload, requestHeader);
+            // String httpMethod = "POST";
 
-            JSONObject callResponse = ServiceUtil.callRemoteService(baseURL, httpEntity, httpMethod);
+            // JSONObject callResponse = ServiceUtil.callRemoteService(baseURL, httpEntity, httpMethod);
 
-            response.setResultCode((Integer)callResponse.get("resultCode"));
+            // response.setResultCode((Integer)callResponse.get("resultCode"));
 
         }catch(Exception e) {
             e.printStackTrace();
             throw e;
         }
+
+        // test
+        response.setResultCode(200);
         return response;
     } 
 
