@@ -101,7 +101,7 @@ public class ReviewsService {
 
                 System.out.println("                               entity : " + entity.toString());
                 Integer result = repository.insert(entity);
-                logger.info("=====================> [ReviewsService / postDetailsInfo] Insert Result : " + result);
+                logger.info("=====================> [ReviewsService / postReviewsInfo] Insert Result : " + result);
             } else if("U".equals(request.getCudFlag())) { 
                 ReviewsDAO entity = new ReviewsDAO();
                 entity.setReviewsId(request.getReviewsId());
@@ -109,7 +109,7 @@ public class ReviewsService {
                 entity.setModiDate(CommUtil.getCurrentDate());
 
                 Integer result = repository.update(entity);
-                logger.info("=====================> [ReviewsService / postDetailsInfo] Update Result : " + result);
+                logger.info("=====================> [ReviewsService / postReviewsInfo] Update Result : " + result);
             }
 
             // 테스트를 위해 잠시 막아놓음

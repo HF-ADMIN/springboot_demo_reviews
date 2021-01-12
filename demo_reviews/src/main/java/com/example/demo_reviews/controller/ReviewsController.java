@@ -41,7 +41,7 @@ public class ReviewsController {
      * @throws     Exception
      * @description GET Request를 받아서 전체 Productpage 정보를 조회하는 메소드
      */
-    @RequestMapping(value="/ReviewsInfo", method=RequestMethod.GET)
+    @RequestMapping(value="/reviewsInfo", method=RequestMethod.GET)
     public ResponseEntity<ReviewsDTO.Response> getReviewsInfo(@RequestHeader HttpHeaders requestHeader, @RequestParam String prodCode) throws Exception{
         ReviewsDTO.Response responseBody = null;
         try {
@@ -56,9 +56,9 @@ public class ReviewsController {
     /**
      * @methodName postReviewsInfo
      * @throws     Exception
-     * @description GET Request를 받아서 전체 해당 prodCode에 대한 Details 정보를 조회하는 메소드
+     * @description GET Request를 받아서 전체 해당 prodCode에 대한 Reviews 정보를 조회하는 메소드
      */
-    @RequestMapping(value="/ReviewsInfo", method=RequestMethod.POST)
+    @RequestMapping(value="/reviewsInfo", method=RequestMethod.POST)
     public ResponseEntity<ReviewsDTO.Response> postReviewsInfo(@RequestHeader HttpHeaders requestHeader, @RequestBody ReviewsDTO.Request request) throws Exception{
         ReviewsDTO.Response responseBody = null;
         try {
