@@ -19,13 +19,13 @@ public class ServiceUtil {
     public static final String REVIEWS_URI = "http://springboot-reviews-service.demo-tinfo.svc.cluster.local:8083";
     public static final String REVIEWS_SERVICE = "reviewsInfo";
 
-    public static final String RATINGS_URI = "192.168.188.150:30293";
-    public static final String RATINGS_SERVICE = "RatingsInfo";
+    public static final String RATINGS_URI = "http://tinfo-demo-rating.demo-tinfo.svc.cluster.local:5000";
+    public static final String RATINGS_SERVICE = "ratingInfo";
 
     private static Logger logger = LoggerFactory.getLogger(ServiceUtil.class);
 
-    @Autowired
-    private static RestTemplate restTemplate;
+    // @Autowired
+    // private static RestTemplate restTemplate;
 
     // @Autowired
     // public ServiceUtil(RestTemplate restTemplate) {
@@ -39,7 +39,7 @@ public class ServiceUtil {
      * @throws      Exception
      * @description baseURL에 CALL 하는 Mehtod입니다.
      */
-    public static JSONObject callRemoteService(String baseURL, HttpEntity<?> requestEntity, String httpMethod) throws Exception {
+    public static JSONObject callRemoteService(RestTemplate restTemplate, String baseURL, HttpEntity<?> requestEntity, String httpMethod) throws Exception {
         logger.info("=====================> [ServiceUtil / callRemoteService] baseURL : " + baseURL);
         JSONObject jsonObject = null;
 

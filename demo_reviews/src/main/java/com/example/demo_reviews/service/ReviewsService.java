@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @className ReviewsService
@@ -31,6 +32,9 @@ public class ReviewsService {
 
     @Autowired
     ReviewsRepository repository;
+
+    @Autowired
+    public RestTemplate restTemplate;
 
     /**
      * @methodName  getReviewsInfo
@@ -49,20 +53,20 @@ public class ReviewsService {
                 System.out.println("                                      dao : " + dao.toString());
 
                 // Rating Service를 Call
-                String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE + "?reviewsId=" + dao.getReviewsId();
+                String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE + "?reviews_id=" + dao.getReviewsId();
                 final HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeader);
                 String httpMethod = "GET";
 
-                // 테스트를 위해 잠시 막아놓음
-                // JSONObject ratingResponse = ServiceUtil.callRemoteService(baseURL, requestEntity, httpMethod);
+                
+                JSONObject ratingResponse = ServiceUtil.callRemoteService(restTemplate, baseURL, requestEntity, httpMethod);
 
                 
 
                 reviews.setReviewsId(dao.getReviewsId());
                 reviews.setContents(dao.getContents());
-                // 테스트를 위해 잠시 막아놓음
-                // reviews.setRating((Integer)ratingResponse.get("rating"));
-                reviews.setRating(5);
+                
+                reviews.setRating((Integer)ratingResponse.get("rating"));
+                // reviews.setRating(5);
                 System.out.println("                                      reviews : " + reviews);
 
                 reviewsList.add(reviews);
@@ -112,20 +116,19 @@ public class ReviewsService {
                 logger.info("=====================> [ReviewsService / postReviewsInfo] Update Result : " + result);
             }
 
-            // 테스트를 위해 잠시 막아놓음
             // request를 입력받아서 Rating Service를 POST 호출한다.
-            // String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE;
+            String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE;
 
-            // Map<String, Object> req_payload = new HashMap<>();
-            // req_payload.put("cudFlag", request.getCudFlag());
-            // req_payload.put("reviewsId", request.getReviewsId());
-            // req_payload.put("rating", request.getRating());
-            // final HttpEntity<?> httpEntity = new HttpEntity<>(req_payload, requestHeader);
-            // String httpMethod = "POST";
+            Map<String, Object> req_payload = new HashMap<>();
+            req_payload.put("cudFlag", request.getCudFlag());
+            req_payload.put("reviewsId", request.getReviewsId());
+            req_payload.put("rating", request.getRating());
+            final HttpEntity<?> httpEntity = new HttpEntity<>(req_payload, requestHeader);
+            String httpMethod = "POST";
 
-            // JSONObject callResponse = ServiceUtil.callRemoteService(baseURL, httpEntity, httpMethod);
+            JSONObject callResponse = ServiceUtil.callRemoteService(restTemplate, baseURL, httpEntity, httpMethod);
 
-            // response.setResultCode((Integer)callResponse.get("resultCode"));
+            response.setResultCode((Integer)callResponse.get("resultCode"));
 
         }catch(Exception e) {
             e.printStackTrace();
