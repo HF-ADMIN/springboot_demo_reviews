@@ -136,9 +136,9 @@ public class ReviewsSpanAspect {
      * @methodName  headerExchangePost
      * @return      Object
      * @description ProceedingJoinPoint에서 Args로 넘어온 HttpHeaders를 가져와서 makeHttpHeaders Method를 사용하여 Http Header 정보를 Exchange한다.
-     *              com.example.demo_reviews.controller.ReviewsController.post(..) 패턴으로 Around AOP를 적용합니다.
+     *              com.example.demo_reviews.controller.ReviewsController.post*(..) 패턴으로 Around AOP를 적용합니다.
      */    
-    @Around("execution(* com.example.demo_reviews.controller.ReviewsController.post(..))")
+    @Around("execution(* com.example.demo_reviews.controller.ReviewsController.post*(..))")
     public Object headerExchangePost(ProceedingJoinPoint pjp) throws Throwable {
         logger.info("[                             headerExchangePost Start                                ]");
         HttpHeaders headers = null;

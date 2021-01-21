@@ -53,7 +53,7 @@ public class ReviewsService {
                 System.out.println("                                      dao : " + dao.toString());
 
                 // Rating Service를 Call
-                String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE + "?reviews_id=" + dao.getReviewsId();
+                String baseURL = ServiceUtil.RATINGS_URI + "/" + ServiceUtil.RATINGS_SERVICE + "?reviewsId=" + dao.getReviewsId();
                 final HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeader);
                 String httpMethod = "GET";
 
@@ -65,10 +65,10 @@ public class ReviewsService {
                 reviews.setReviewsId(dao.getReviewsId());
                 reviews.setContents(dao.getContents());
                 
-                reviews.setRating((Integer)ratingResponse.get("rating"));
-                // reviews.setRating(5);
+                if("200".equals(String.valueOf(ratingResponse.get("resultCode")))) {
+                    reviews.setRating(Integer.valueOf(String.valueOf(ratingResponse.get("rating"))));
+                }
                 System.out.println("                                      reviews : " + reviews);
-
                 reviewsList.add(reviews);
             }
 
@@ -128,7 +128,7 @@ public class ReviewsService {
 
             JSONObject callResponse = ServiceUtil.callRemoteService(restTemplate, baseURL, httpEntity, httpMethod);
 
-            response.setResultCode((Integer)callResponse.get("resultCode"));
+            response.setResultCode(Integer.valueOf(String.valueOf(callResponse.get("resultCode"))));
 
         }catch(Exception e) {
             e.printStackTrace();

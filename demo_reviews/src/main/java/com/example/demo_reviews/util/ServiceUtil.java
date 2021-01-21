@@ -19,7 +19,8 @@ public class ServiceUtil {
     public static final String REVIEWS_URI = "http://springboot-reviews-service.demo-tinfo.svc.cluster.local:8083";
     public static final String REVIEWS_SERVICE = "reviewsInfo";
 
-    public static final String RATINGS_URI = "http://tinfo-demo-rating.demo-tinfo.svc.cluster.local:5000";
+    // public static final String RATINGS_URI = "http://tinfo-demo-rating.demo-tinfo.svc.cluster.local:5000";
+    public static final String RATINGS_URI = "http://192.168.188.156:30486";
     public static final String RATINGS_SERVICE = "ratingInfo";
 
     private static Logger logger = LoggerFactory.getLogger(ServiceUtil.class);
@@ -45,22 +46,27 @@ public class ServiceUtil {
 
         ResponseEntity<String> serviceResponse = null;
 
-        if("GET".equals(httpMethod)) {
-            serviceResponse = restTemplate.exchange(
-                baseURL, HttpMethod.GET, requestEntity, String.class);  
-        } else if("POST".equals(httpMethod)) {
-            serviceResponse = restTemplate.postForEntity(
-                baseURL, requestEntity, String.class);
-        }
-
-        if(serviceResponse != null && serviceResponse.getBody() != null) {
-            logger.info(
-                    "=====================> [ServiceUtil / callRemoteService] callResponse :" + serviceResponse.getBody());
-
-            // From String to JSONOBject
-            JSONParser jsonParser = new JSONParser();
-            String jsonString = String.valueOf(serviceResponse.getBody());
-            jsonObject = (JSONObject)jsonParser.parse(jsonString);
+        try {
+            if("GET".equals(httpMethod)) {
+                serviceResponse = restTemplate.exchange(
+                    baseURL, HttpMethod.GET, requestEntity, String.class);  
+            } else if("POST".equals(httpMethod)) {
+                serviceResponse = restTemplate.postForEntity(
+                    baseURL, requestEntity, String.class);
+            }
+    
+            if(serviceResponse != null && serviceResponse.getBody() != null) {
+                logger.info(
+                        "=====================> [ServiceUtil / callRemoteService] callResponse :" + serviceResponse.getBody());
+    
+                // From String to JSONOBject
+                JSONParser jsonParser = new JSONParser();
+                String jsonString = String.valueOf(serviceResponse.getBody());
+                jsonObject = (JSONObject)jsonParser.parse(jsonString);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+            throw e;
         }
 
         logger.info("=====================> [ServiceUtil / callRemoteService] Return jsonObject : " + jsonObject);

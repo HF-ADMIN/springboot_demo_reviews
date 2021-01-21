@@ -61,7 +61,7 @@ public class ReviewsDAO {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub 
         // return String.valueOf("prod_code : " + this.prodCode + ", reviews_id : " + this.reviewsId + ", contents : " + this.contents + ", create_date : " + this.createDate);
         return String.valueOf("        DAO : " + this.prodCode + ", " + this.reviewsId + ", " + this.contents + ", " + this.createDate + ", " + this.prodName);
     }
