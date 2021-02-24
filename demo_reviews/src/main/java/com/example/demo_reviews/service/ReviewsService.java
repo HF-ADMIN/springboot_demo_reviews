@@ -114,6 +114,12 @@ public class ReviewsService {
 
                 Integer result = repository.update(entity);
                 logger.info("=====================> [ReviewsService / postReviewsInfo] Update Result : " + result);
+            } else if("D".equals(request.getCudFlag())) {
+                ReviewsDAO entity = new ReviewsDAO();
+                entity.setReviewsId(request.getReviewsId());
+
+                Integer result = repository.deleteReviews(entity);
+                logger.info("=====================> [ReviewsService / postReviewsInfo] Delete Result : " + result);
             }
 
             // request를 입력받아서 Rating Service를 POST 호출한다.

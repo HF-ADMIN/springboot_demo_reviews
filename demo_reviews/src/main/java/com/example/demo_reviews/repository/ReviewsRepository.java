@@ -28,5 +28,10 @@ public interface ReviewsRepository extends JpaRepository<ReviewsDAO, Long> {
     @Query(nativeQuery = true, value= "insert into reviews(prod_code, reviews_id, contents, create_date) values(:#{#dao.prodCode}, :#{#dao.reviewsId}, :#{#dao.contents}, :#{#dao.createDate})")
     Integer insert(@Param("dao") ReviewsDAO dao);
 
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value= "delete from reviews where reviews_id = :#{#dao.reviewsId}")
+    Integer deleteReviews(@Param("dao") ReviewsDAO dao);
+
 
 }

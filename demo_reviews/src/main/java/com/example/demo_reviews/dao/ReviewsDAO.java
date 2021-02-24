@@ -41,7 +41,7 @@ public class ReviewsDAO {
     @Column(name = "create_date", nullable = true)
     private Date createDate;
 
-    @Column(name = "modi_date", nullable = true)
+    @Column(name = "modi_date", nullable = true) 
     private Date modiDate;
 
     @Column(name="prod_name", nullable=true, length=20)
