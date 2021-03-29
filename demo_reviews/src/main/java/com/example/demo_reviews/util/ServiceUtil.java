@@ -19,8 +19,8 @@ public class ServiceUtil {
     public static final String REVIEWS_URI = "http://springboot-reviews-service.demo-tinfo.svc.cluster.local:8083";
     public static final String REVIEWS_SERVICE = "reviewsInfo";
 
-    // public static final String RATINGS_URI = "http://tinfo-demo-rating.demo-tinfo.svc.cluster.local:5000";
-    public static final String RATINGS_URI = "http://192.168.188.156:30486";
+    public static final String RATINGS_URI = "http://tinfo-demo-rating.demo-tinfo.svc.cluster.local:5000";
+    // public static final String RATINGS_URI = "http://192.168.171.175:30486";
     public static final String RATINGS_SERVICE = "ratingInfo";
 
     private static Logger logger = LoggerFactory.getLogger(ServiceUtil.class);
