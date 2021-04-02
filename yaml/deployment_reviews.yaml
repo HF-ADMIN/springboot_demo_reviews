@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-reviews-deployment
+  namespace: demo-tinfo
+  labels:
+    app: springboot-reviews
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot-reviews
+  template:
+    metadata:
+      labels:
+        app: springboot-reviews
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: k8s-worker1
+      volumes:
+        - name: tz-seoul
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Seoul
+        - name: reviews-storage
+          persistentVolumeClaim:
+            claimName: reviews-pvc-volume
+      containers:
+      - name: springboot-reviews-container
+        image: soondo21/springboot-demo-reviews:latest
+        ports:
+        - containerPort: 8083
+        volumeMounts:
+          - name: tz-seoul
+            mountPath: /etc/localtime
+          - name: reviews-storage
+            mountPath: /mnt/data
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 100m

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: reviews-pv-volume
+  namespace : demo-tinfo
+  labels:
+    type: local
+spec:
+  storageClassName: reviews-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/demo-tinfo/reviews"
