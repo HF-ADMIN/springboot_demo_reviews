@@ -21,4 +21,4 @@
 3. service 생성
 	1) reviews-svc 생성
 		- NodePort 타입으로 서비스를 생성합니다.
-		- 서비스의 nodePort는 '30842'로 설정합니다.
+		- 서비스의 nodePort는 '30140'로 설정합니다.
